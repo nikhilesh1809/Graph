@@ -1,2 +1,244 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+
+import java.util.Scanner;
+public class equation_plotter_solver_graph
+{
+  public static void main ()
+  {
+       Scanner sc= new Scanner (System.in); 
+       System.out.println("Enter coefficient of x");
+       int a= sc.nextInt();
+       System.out.println("Enter coefficient of y");
+       int b= sc.nextInt();
+       System.out.println("Enter constant");
+       int c= sc.nextInt();
+       System.out.println("Enter scale for x");
+       int xi= sc.nextInt();
+       System.out.println("Enter scale for y");
+       int yj= sc.nextInt();
+       System.out.println("Enter limit for y-axis");
+       int l= sc.nextInt();  
+       int max=Integer.MIN_VALUE;
+       int lx=0;
+       
+       if(a==0)
+        {
+         System.out.println("Enter limit for x-axis");
+         lx= sc.nextInt();
+        }
+       boolean flag1=false;
+       boolean flag2=false;
+       boolean flag3=false;
+       boolean flag4=false;
+     
+       System.out.println("\f"); 
+       System.out.println("("+a+"x) + ("+b+"y) + ("+c+") = 0" ); 
+       System.out.println(" ");
+       System.out.println("Equation coordinates:");
+       System.out.println("x,y"); 
+           
+        
+      
+      
+    if(a>0|| a<0)
+      {
+          for (int y=0;y<=l;y++)
+       {
+           
+             int x=-((b*y)+c)/a;
+             
+             if(y==0 && x==0)
+             {
+              flag1=true;
+              break;
+             }//.______
+             
+             if(y!=0 && x!=0)
+             {
+                flag2=true;
+                break;
+             }//__________
+             
+             if(y==0 && x>0)
+             {
+              flag3=true;
+              break;
+             }//0_____.___
+                        
+       }// x-axis (0,y)
+    }
+    
+    for (int y=0;y<=l;y++)
+    {
+           if (a>0|| a<0)
+           {
+           int x=-((b*y)+c)/a;
+            System.out.println(x+","+y);
+        }
+        else if(a==0)
+        
+           System.out.println("0,"+y); 
+        
+        }// solver
+       
+        
+    System.out.println("");
+    System.out.println("Graph:");
+    System.out.println("");
+    
+      if(a>0 || a<0)
+      {
+          System.out.println("Y");
+          System.out.println("\u2191");
+          
+        for (int y=l;y>=1;y--)
+       {
+            
+            int x=-((b*y)+c)/a;
+            if((y*yj>0||y*yj<0) && (x*xi>0||x*xi<0))
+              System.out.print("|"); //y-axis (x,0)
+          
+            if(y*yj>=0 && x*xi>=0)
+            {
+               
+               for (int k=1;k<=(xi*x)-1;k++)
+               {
+                  System.out.print(" ");                     
+               }//scale x
+               
+               System.out.print("\u2022"); 
+             }//I Quadrant
+           
+           for(int j=1; j<=yj;j++)
+           {
+               System.out.println("");
+           }//scale y
+                          
+       }//plotter
+       
+    }
+    
+    else if(a==0)     
+    {   
+         System.out.println("Y");
+          System.out.println("\u2191");
+          
+        
+        for ( int n=1;n<= yj*(l+c);n++)
+        {
+            System.out.println("|");
+        }//above point
+        for ( int m=0;m<=lx ;m++)
+        {
+            System.out.print("\u2022");
+            if (xi>1)
+            {
+                for (int i=2; i<=xi;i++)
+                {
+                    System.out.print(" ");                    
+                }
+            }
+                    }// graph
+        if (c<0)
+         {
+          System.out.println(" ");  
+            for ( int v=1;v<=-yj*(c+1);v++)
+           {
+              System.out.println("|");
+           }//down point
+          System.out.print("0");
+    
+           for (int m=0;m<=(xi*lx);m++)
+           {
+             System.out.print("―");
+           }
+        }
+        System.out.print("\u279E"+ "X");
+    
+    }//plotter
+    
+    
+    
+    
+    for (int y=0;y<=l;y++)
+       {
+            if(a>0|| a<0)
+            {
+               int xn=-((b*y)+c)/a;
+            
+                if(xn>max)
+                 max=xn;
+                 
+            }
+               
+       }// x-axis till x-max
+    
+    
+    
+    if(flag2==true && a!=0)
+      {
+      System.out.print("0");
+    
+      for (int m=0;m<=(xi*max)+1;m++)
+        {
+           System.out.print("―");
+        }
+        System.out.print("\u279E"+ "X");
+      }
+     
+     else if (flag3==true && a!=0)
+      {
+        System.out.print("0");
+          for (int m=1; m<=xi*(-c/a)-1;m++)
+        {
+           System.out.print("―");
+        }
+        System.out.print("\u2022");
+        for (int m=0; m<=xi*(max+(-c/a))+2;m++)
+        {
+           System.out.print("―");
+        }
+        System.out.print("\u279E"+ "X");
+      }
+    else if (flag1=true && a!=0)
+      {
+          System.out.print("\u2022");
+          
+         for (int m=0;m<=(xi*max)+2;m++)
+          {
+            System.out.print("―");
+          }
+          System.out.print("\u279E"+ "X");
+      }
+      
+      
+    
+        System.out.println(" ");
+        System.out.println(" ");
+        System.out.println("Graph information:"); 
+        System.out.println("");
+        if(a>0 || a<0)
+        System.out.println("x-intercept = "+ -c/a);
+        else 
+         System.out.println("x-intercept = undefined");
+        
+        if(b>0 || b<0)
+         System.out.println("y-intercept = "+ -c/b);
+        else 
+         System.out.println("y-intercept = undefined");
+        
+        Double a1=new Double(a);
+        Double b1=new Double(b);
+        
+        if(b>0 || b<0)
+        System.out.println("Slope = "+ -a1/b1);
+        else 
+        System.out.println("Slope = undefined");
+        
+        double angle= 57.29*Math.atan(-a1/b1);
+        if (angle>=0)
+         System.out.println("Angle between graph and x-axis = "+Math.round(angle)+ "\u00b0");
+         else if(angle<0)
+         System.out.println("Angle between graph and x-axis = "+(180+Math.round(angle))+ "\u00b0");
+    }
+}
+
